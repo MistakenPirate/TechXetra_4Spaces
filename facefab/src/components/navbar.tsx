@@ -10,7 +10,7 @@ function Navbar() {
   return (
     <div className="py-4 px-4 flex justify-between items-center bg-[#020722] sticky">
       <Logo />
-      {(router === "/student")&&
+      {(router.includes("/student"))&&
         <div className="text-[#B2A8A8] flex gap-20 text-[1.2rem]">
           <Link href="#">Attendance Manager</Link>
           <Link href="#">Calendar</Link>

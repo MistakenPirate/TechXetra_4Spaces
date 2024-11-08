@@ -1,20 +1,38 @@
 import Link from "next/link";
 import Image from "next/image";
-
+import pinkBlob from '../../../public/blob.svg';
+import orangeBlob from "../../../public/orangeBLob.svg";
 export default function landingPage() {
   return (
     <div className="w-full">
-      <section className="w-full py-16 md:py-32 lg:py-40">
-        <div className="px-6 md:px-8">
-          <div className="grid justify-center items-center gap-8 lg:grid-cols-2 lg:gap-16">
-            <div className="space-y-6 px-8">
-              <h1 className="text-4xl font-bold text-white sm:text-5xl md:text-6xl xl:text-7xl 2xl:text-[4rem]">
-                Revolutionize Attendance with <span className="bg-gradient-to-br from-[#FF5B1F] to-[#6E4279] bg-clip-text text-transparent">FaceFab</span> 📸
+      <section className="w-full py-8 md:py-16 lg:py-30 relative">
+        <Image src={pinkBlob} className="absolute right-0 top-0 w-[20%]" alt="blob" />
+        <Image src={orangeBlob} className="absolute left-0 bottom-0 w-[20%]" alt="blob" />
+        <div className="px-6 md:px-8 flex flex-col">
+          <div className="grid justify-center items-center gap-4 lg:grid-cols-1 lg:gap-5">
+            <div className="space-y-3 px-8">
+              <h1 className="text-[20px] uppercase font-bold text-white text-center sm:text-5xl md:text-7xl xl:text-8xl 2xl:text-[2rem]">
+                Revolutionize Attendance with <br /><br /><span className="bg-gradient-to-r  from-[#FF5B1F] to-[#6E4279] bg-clip-text text-transparent text-[5rem] montserrat">FaceFab </span><span className="text-[5rem]">📸</span>
               </h1>
-              <p className="text-md text-white/90 sm:text-lg md:text-2xl xl:text-3xl">
-                Efficient, accurate, and contactless attendance tracking for the
-                modern world. Let <a href="/" className="underline font-semibold text-orange-500 underline-offset-2">FaceFab</a> simplify your classroom or office!
-              </p>
+            
+            </div>
+
+            <div className="flex justify-center">
+              <Image
+                src="/landing.svg"
+                width="600"
+                height="600"
+                alt="Attendance Tracking"
+                className=" transform transition-all hover:scale-105"
+              />
+ 
+            </div>
+            <div className="px-8 w-[33%] absolute right-0 bottom-[30%] flex flex-col gap-10">
+            <p className="text-md text-white/90 sm:text-lg md:text-2xl xl:text-2xl opacity-[0.75]">
+            <span className="text-[#FF5B1F] text-bold">
+            FaceFab
+              </span> leverages cutting-edge facial recognition technology to streamline the attendance process, ensuring accuracy, security, and speed.
+              </p> 
               <div className="flex items-center gap-4">
                 <Link
                   href="/role"
@@ -28,18 +46,8 @@ export default function landingPage() {
                   className="text-white text-lg font-medium hover:text-gray-200 hover:underline transition duration-300"
                 >
                   Learn More
-                </Link>
-              </div>
-            </div>
-
-            <div className="flex justify-center">
-              <Image
-                src="/landing.svg"
-                width="600"
-                height="600"
-                alt="Attendance Tracking"
-                className="rounded-2xl shadow-2xl border-4 border-white transform transition-all hover:scale-105"
-              />
+                </Link> 
+              </div> 
             </div>
           </div>
         </div>
