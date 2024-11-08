@@ -4,17 +4,17 @@ import { SignInButton } from "@clerk/nextjs";
 
 export default function landingPage() {
   return (
-    <div className="w-full bg-gradient-to-r from-blue-500 to-purple-600">
+    <div className="w-full bg-gradient-to-r from-[#020722] to-[#020722]/70">
       <section className="w-full py-16 md:py-32 lg:py-40">
-        <div className="container px-6 md:px-8">
-          <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
-            <div className="space-y-6">
+        <div className="px-6 md:px-8">
+          <div className="grid justify-center items-center gap-8 lg:grid-cols-2 lg:gap-16">
+            <div className="space-y-6 px-8">
               <h1 className="text-4xl font-bold text-white sm:text-5xl md:text-6xl xl:text-7xl 2xl:text-[4rem]">
-                Revolutionize Attendance with FaceFab 📸
+                Revolutionize Attendance with <span className="bg-gradient-to-br from-[#FF5B1F] to-[#6E4279] bg-clip-text text-transparent">FaceFab</span> 📸
               </h1>
-              <p className="text-lg text-white/90 sm:text-xl md:text-2xl xl:text-3xl">
+              <p className="text-md text-white/90 sm:text-lg md:text-2xl xl:text-3xl">
                 Efficient, accurate, and contactless attendance tracking for the
-                modern world. Let FaceFab simplify your classroom or office!
+                modern world. Let <a href="/" className="underline font-semibold text-orange-500 underline-offset-2">FaceFab</a> simplify your classroom or office!
               </p>
               <div className="flex items-center gap-4">
                 <Link
@@ -47,7 +47,7 @@ export default function landingPage() {
       </section>
 
       <section id="features" className="bg-gray-900 py-20">
-        <div className="container px-6 md:px-8">
+        <div className="px-6 md:px-8">
           <h2 className="text-3xl font-bold text-center text-white md:text-4xl">
             Key Features of FaceFab
           </h2>
@@ -86,7 +86,7 @@ export default function landingPage() {
       </section>
 
       <footer className="bg-gray-800 py-8">
-        <div className="container text-center text-white">
+        <div className="text-center text-white">
           <p>&copy; 2024 FaceFab. All rights reserved.</p>
           <p className="mt-2">Transforming the way attendance is managed.</p>
         </div>
