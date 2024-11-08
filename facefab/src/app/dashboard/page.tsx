@@ -11,7 +11,6 @@ export default function DashboardPage() {
     router.push("/student");
   } else if (role === "faculty") {
     router.push("/faculty");
-  }
-  
+  } 
   return null;
 }

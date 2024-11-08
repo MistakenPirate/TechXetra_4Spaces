@@ -21,7 +21,7 @@ function Navbar() {
       <div>
         <SignedOut>
           <SignInButton>
-            <Button className="bg-transparent text-white hover:scale-105 hover:bg-white hover:text-black md:text-lg text-md transition duration-300 md:mr-10">Register Here</Button>
+            <Button className="bg-transparent text-white hover:scale-105 hover:bg-white hover:text-black md:text-lg transition duration-300 md:mr-10">Register Here</Button>
           </SignInButton>
         </SignedOut>
         <SignedIn>
