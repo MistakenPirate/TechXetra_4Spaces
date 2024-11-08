@@ -4,7 +4,7 @@ import { SignInButton } from "@clerk/nextjs";
 
 export default function landingPage() {
   return (
-    <div className="w-full bg-gradient-to-r from-[#020722] to-[#020722]/70">
+    <div className="w-full">
       <section className="w-full py-16 md:py-32 lg:py-40">
         <div className="px-6 md:px-8">
           <div className="grid justify-center items-center gap-8 lg:grid-cols-2 lg:gap-16">
@@ -19,14 +19,14 @@ export default function landingPage() {
               <div className="flex items-center gap-4">
                 <Link
                   href="#"
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white px-8 text-lg font-medium shadow-lg transform transition-all hover:scale-105 focus:outline-none"
+                  className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-[#FFFFFF]/30 to-[#191919] border-white hover:border-2 shadow-gray-700 text-white px-8 text-lg font-medium shadow-lg transform transition-all hover:scale-105 focus:outline-none"
                   prefetch={false}
                 >
                   <SignInButton>Start Tracking</SignInButton>
                 </Link>
                 <Link
                   href="#features"
-                  className="text-white text-lg font-medium hover:text-gray-200 transition duration-300"
+                  className="text-white text-lg font-medium hover:text-gray-200 hover:underline transition duration-300"
                 >
                   Learn More
                 </Link>
