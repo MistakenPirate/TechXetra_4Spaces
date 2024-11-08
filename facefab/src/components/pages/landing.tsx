@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { SignInButton } from "@clerk/nextjs";
 
 export default function landingPage() {
   return (
@@ -18,11 +17,11 @@ export default function landingPage() {
               </p>
               <div className="flex items-center gap-4">
                 <Link
-                  href="#"
+                  href="/role"
                   className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-[#FFFFFF]/30 to-[#191919] border-white hover:border-2 shadow-gray-700 text-white px-8 text-lg font-medium shadow-lg transform transition-all hover:scale-105 focus:outline-none"
                   prefetch={false}
                 >
-                  <SignInButton>Start Tracking</SignInButton>
+                  Start Tracking
                 </Link>
                 <Link
                   href="#features"
