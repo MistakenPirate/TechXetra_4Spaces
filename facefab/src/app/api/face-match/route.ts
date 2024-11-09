@@ -2,12 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 function euclideanDistance(descriptor1: Float32Array, descriptor2: Float32Array): number {
-  return Math.sqrt(
-    descriptor1.map((x, i) => Math.pow(x - descriptor2[i], 2)).reduce((sum, curr) => sum + curr, 0)
-  );
+  let sum = 0;
+  for (let i = 0; i < descriptor1.length; i++) {
+    const diff = descriptor1[i] - descriptor2[i];
+    sum += diff * diff;
+  }
+  return Math.sqrt(sum);
 }
 
-async function findBestMatch(targetDescriptor: Float32Array, subjectName: string, threshold: number = 0.5) {
+async function findBestMatch(targetDescriptor: Float32Array, subjectName: string, threshold: number = 0.6) {
   const students = await prisma.user.findMany({
     select: {
       id: true,
@@ -16,7 +19,7 @@ async function findBestMatch(targetDescriptor: Float32Array, subjectName: string
       name: true,
     },
   });
-
+  console.log({"students":students})
   const subject = await prisma.subject.findFirst({
     where: { name: subjectName },
     select: {
@@ -44,13 +47,14 @@ async function findBestMatch(targetDescriptor: Float32Array, subjectName: string
     let dbDescriptor;
     try {
       dbDescriptor = new Float32Array(student.faceDescriptor);
+      console.log({'dbDescriptor':dbDescriptor})
     } catch (error) {
       console.error(`Error parsing faceDescriptor for student ID ${student.id}`, error);
       continue; // Skip this student if there's an issue with parsing
     }
 
     const distance = euclideanDistance(targetDescriptor, dbDescriptor);
-
+    console.log({'distance':distance})
     if (distance < threshold && distance < bestMatch.distance) {
       bestMatch = {
         studentId: student.clerkId,
@@ -58,6 +62,7 @@ async function findBestMatch(targetDescriptor: Float32Array, subjectName: string
         distance: distance,
         name: student.name,
       };
+      console.log({"Match Testing":bestMatch})
     }
   }
 
@@ -68,19 +73,22 @@ export async function POST(request: NextRequest) {
   console.log("Start of POST request");
 
   try {
-    const { faceDescriptor, subjectName } = await request.json();
-
+    let{ faceDescriptor, subjectName } = await request.json();
+    if (faceDescriptor && faceDescriptor.faceDescriptor) {
+      faceDescriptor = faceDescriptor.faceDescriptor;
+    }
     if (!faceDescriptor || !subjectName) {
       return NextResponse.json({ error: "Invalid input" }, { status: 400 });
     }
-
+    console.log({"faceDescriptor":faceDescriptor})
     const targetDescriptor = new Float32Array(faceDescriptor);
+    console.log({"targetDescriptor":targetDescriptor})
     const match = await findBestMatch(targetDescriptor, subjectName);
+    console.log(match)
 
     if (!match.studentId) {
       return NextResponse.json({ error: "No matching face found" }, { status: 404 });
     }
-
     const attendance = await prisma.studentSubject.upsert({
       where: {
         userId_subjectId: {

@@ -98,7 +98,7 @@ const FaceScanPopup = ({
         );
       }
 
-      if (detection.detection.score < 0.5) {
+      if (detection.detection.score < 0.02) {
         throw new Error(
           "Face detection confidence too low. Please try again in better lighting."
         );
@@ -107,6 +107,7 @@ const FaceScanPopup = ({
       const faceData = {
         faceDescriptor: Array.from(detection.descriptor),
       };
+      console.log(faceData)
 
       const response = await fetch("/api/face-match", {
         method: "POST",
@@ -145,7 +146,7 @@ const FaceScanPopup = ({
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
       <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Face Scan for {subjectName}</h2>
+          <h2 className="text-xl font-semibold text-black">Face Scan for {subjectName}</h2>
           <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700"

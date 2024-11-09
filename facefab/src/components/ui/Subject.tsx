@@ -10,7 +10,7 @@ import { useToast } from "@/components/ui/use-toast";
 export default function Subject({subject,addAttendance}:any) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { toast } = useToast();
-
+  const [subjectName,setSubjectName] = useState("")
   const handleScanComplete = (success: boolean) => {
     toast({
       title: success ? "Attendance Recorded" : "Scan Failed",
@@ -20,6 +20,10 @@ export default function Subject({subject,addAttendance}:any) {
       variant: success ? "default" : "destructive",
     });
   };
+  const handleClick =(name)=>{
+    setIsPopupOpen(true)
+    setSubjectName(name)
+  } 
 
   return (
     <>
@@ -43,7 +47,7 @@ export default function Subject({subject,addAttendance}:any) {
                     <button className="bg-[#39D2E6] px-2 py-1 rounded-lg w-[2rem] active:scale-105" onClick={()=>addAttendance(subject.id)}>+</button>
                   </td>
                   <td>
-                    <button onClick={()=>setIsPopupOpen(true)}>
+                    <button onClick={()=>handleClick(subject.name)}>
                       <Image src={Camera} alt={"camera"} className="active:scale-105 w-[2rem]"/>
                     </button>
                   </td>
@@ -56,7 +60,7 @@ export default function Subject({subject,addAttendance}:any) {
       <FaceScanPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
-        subjectName="Maths"
+        subjectName={subjectName}
         onScanComplete={handleScanComplete}
       />
     </>
