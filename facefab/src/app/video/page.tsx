@@ -155,7 +155,7 @@ export default function FaceEnrollment() {
         faceDescriptor: Array.from(detection.descriptor)
       }
 
-      const response = await fetch('/api', {
+      const response = await fetch('../api/face-enrollment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(faceData),
