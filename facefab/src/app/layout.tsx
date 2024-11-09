@@ -3,6 +3,7 @@ import "./globals.css";
 
 import { ClerkAuthWrapper } from "../clerk/clerk";
 import Navbar from "@/components/navbar";
+import { ToastProvider } from "@/components/ui/use-toast";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,8 +19,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ClerkAuthWrapper>
-          <Navbar />
-          {children}
+          <ToastProvider>
+            <Navbar />
+            {children}
+          </ToastProvider>
         </ClerkAuthWrapper>
       </body>
     </html>

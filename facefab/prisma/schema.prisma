@@ -28,12 +28,12 @@ model Subject {
 
 model StudentSubject {
   id              Int      @id @default(autoincrement())
-  userId          Int
+  userId          String
   subjectId       Int
-  attendedClasses Int      // Number of classes attended by the user in this subject
-  user            User     @relation(fields: [userId], references: [id])
+  attendedClasses Int      @default(0)
+  user            User     @relation(fields: [userId], references: [clerkId])
   subject         Subject  @relation(fields: [subjectId], references: [id])
 
-  @@unique([userId, subjectId]) // Prevents duplicate enrollments
+  @@unique([userId, subjectId])
   @@index([userId, subjectId])  // Optimizes queries involving user and subject lookup
 }

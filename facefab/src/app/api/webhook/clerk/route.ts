@@ -12,11 +12,10 @@ export async function POST(req: NextRequest) {
     const { id: clerkId, first_name } = data;
 
     try {
-      // Create the user in Prisma
       await prisma.user.create({
         data: {
           clerkId,
-          name: first_name, // Store only the first name in the name field
+          name: first_name, 
         },
       });
 
