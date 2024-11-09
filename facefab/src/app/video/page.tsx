@@ -24,7 +24,6 @@ export default function FaceEnrollment() {
       const MODEL_URL = '/models'
       
       try {
-        console.log("tryu")
         await Promise.all([
           faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL),
           faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
@@ -63,9 +62,10 @@ export default function FaceEnrollment() {
     const current = videoRef.current
     return () => {
       if (current?.srcObject) {
+        console.log("Clear Video")
         const tracks = (current.srcObject as MediaStream).getTracks()
         tracks.forEach(track => track.stop())
-      }
+      } 
     }
   }, [modelsLoaded])
 
@@ -75,6 +75,7 @@ export default function FaceEnrollment() {
     let animationFrameId: number
 
     const detectFaces = async () => {
+      console.log("inside detectFaces")
       if (!videoRef.current || !canvasRef.current) return
 
       const video = videoRef.current
@@ -84,6 +85,7 @@ export default function FaceEnrollment() {
 
       const detect = async () => {
         try {
+          console.log("rter")
           const detections = await faceapi
             .detectAllFaces(video, new faceapi.SsdMobilenetv1Options({
               minConfidence: 0.5,
@@ -131,7 +133,7 @@ export default function FaceEnrollment() {
 
   const enrollFace = async () => {
     if (!videoRef.current || isProcessing) return
-    
+    console.log("sdfsfs")
     setIsProcessing(true)
     try {
       const detection = await faceapi
@@ -141,18 +143,10 @@ export default function FaceEnrollment() {
         .withFaceLandmarks()
         .withFaceDescriptor()
 
+      console.log('enrollFace')
+
       if (!detection) {
         alert('No face detected! Please ensure your face is clearly visible and well-lit.')
-        setIsProcessing(false)
-        return
-      }
-
-      // Additional check for face quality
-      const landmarks = detection.landmarks
-      const faceQualityOK = validateFaceQuality(landmarks)
-      
-      if (!faceQualityOK) {
-        alert('Please ensure your face is clearly visible and looking straight at the camera.')
         setIsProcessing(false)
         return
       }
@@ -161,13 +155,16 @@ export default function FaceEnrollment() {
         faceDescriptor: Array.from(detection.descriptor)
       }
 
-      const response = await fetch('/api/face-enrollment', {
+      const response = await fetch('/api', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(faceData),
       })
+      
+      console.log(response)
 
       if (response.ok) {
+        console.log("ok")
         alert('Face enrolled successfully!')
         router.push('/dashboard')
       } else {
@@ -175,33 +172,12 @@ export default function FaceEnrollment() {
         alert(`Error enrolling face: ${error.message}`)
       }
     } catch (error) {
+      console.log(error)
       console.error('Error during face enrollment:', error)
       alert('Error during face enrollment. Please try again.')
     } finally {
       setIsProcessing(false)
     }
-  }
-
-  const validateFaceQuality = (landmarks: faceapi.FaceLandmarks68) => {
-    const leftEye = landmarks.getLeftEye()
-    const rightEye = landmarks.getRightEye()
-    
-    // Calculate eye level difference (check if face is tilted)
-    const eyeLevelDiff = Math.abs(leftEye[0].y - rightEye[0].y)
-    const maxTiltAllowed = 10 // pixels
-    
-    // Check face rotation using nose position
-    const nose = landmarks.getNose()
-    const nosePosition = nose[nose.length - 1]
-    const faceCenter = (leftEye[0].x + rightEye[0].x) / 2
-    const noseDeviation = Math.abs(nosePosition.x - faceCenter)
-    const maxNoseDeviation = 15 // pixels
-
-    return eyeLevelDiff < maxTiltAllowed && noseDeviation < maxNoseDeviation
-  }
-
-  if (!isLoaded || !isSignedIn) {
-    return <div>Loading...</div>
   }
 
   return (

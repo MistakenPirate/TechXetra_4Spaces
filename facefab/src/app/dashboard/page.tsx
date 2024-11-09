@@ -7,10 +7,10 @@ export default function DashboardPage() {
   const router = useRouter();
   const role = user?.publicMetadata?.role;
 
-  if (role === "student") {
-    router.push("/student");
-  } else if (role === "faculty") {
+  if (role === "faculty") {
     router.push("/faculty");
+  } else {
+    router.push("/student");
   } 
   return null;
 }
