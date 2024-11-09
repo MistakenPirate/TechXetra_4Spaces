@@ -73,6 +73,11 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: #020722;
   }
+}
+@layer utilities{
+  .clip{
+    clip-path: polygon(0 0 , 100% 0 , 100% 100% , 0 100%);
+  };
 }
