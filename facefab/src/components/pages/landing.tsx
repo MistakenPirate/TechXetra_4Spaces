@@ -2,9 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import pinkBlob from '../../../public/blob.svg';
 import orangeBlob from "../../../public/orangeBLob.svg";
+import PreLoader from "../ui/PreLoader";
 export default function landingPage() {
   return (
     <div className="w-full">
+      <PreLoader/>
       <section className="w-full py-8 md:py-16 lg:py-30 relative">
         <Image src={pinkBlob} className="absolute right-0 top-0 w-[20%]" alt="blob" />
         <Image src={orangeBlob} className="absolute left-0 bottom-0 w-[20%]" alt="blob" />
