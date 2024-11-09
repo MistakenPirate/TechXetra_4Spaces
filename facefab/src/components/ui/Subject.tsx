@@ -7,7 +7,7 @@ import Camera from "../../../public/camera.svg"; // Adjust the path
 import FaceScanPopup from "@/components/FaceScanPopUp";
 import { useToast } from "@/components/ui/use-toast";
 
-export default function Subject() {
+export default function Subject({subject,addAttendance}:any) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { toast } = useToast();
 
@@ -33,24 +33,23 @@ export default function Subject() {
           </tr>
         </thead>
         <tbody className="pt-10 text-center">
-        <tr className="border-r-2 border-[rgba(255,255,255,0.25)]">
-          <td>Maths</td>
-          <td>10</td>
-          <td>
-            <button className="bg-[#39D2E6] px-2 py-1 rounded-lg w-[2rem] active:scale-105">
-              +
-            </button>
-          </td>
-          <td>
-            <button onClick={() => setIsPopupOpen(true)}>
-              <Image
-                src={Camera}
-                alt={"camera"}
-                className="active:scale-105 w-[2rem]"
-              />
-            </button>
-          </td>
-        </tr>
+        {
+              subject?.map((subject:any,index:number)=>{
+                return (
+                  <tr className="border-r-2 border-[rgba(255,255,255,0.25)] h-[2rem]" key={index}>
+                  <td className="">{subject.name}</td>
+                  <td>{subject.totalClasses}</td>
+                  <td>
+                    <button className="bg-[#39D2E6] px-2 py-1 rounded-lg w-[2rem] active:scale-105" onClick={()=>addAttendance(subject.id)}>+</button>
+                  </td>
+                  <td>
+                    <button onClick={()=>setIsPopupOpen(true)}>
+                      <Image src={Camera} alt={"camera"} className="active:scale-105 w-[2rem]"/>
+                    </button>
+                  </td>
+                </tr>
+                )
+            })}
         </tbody>
       </table>
 

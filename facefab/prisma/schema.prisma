@@ -29,7 +29,6 @@ model Subject {
 model StudentSubject {
   id              Int      @id @default(autoincrement())
   userId          String
-  userId          String
   subjectId       Int
   attendedClasses Int      @default(0)
   user            User     @relation(fields: [userId], references: [clerkId])
