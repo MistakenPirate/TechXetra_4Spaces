@@ -39,7 +39,7 @@ export default function CircleProgressBar({ percentage, circleWidth }: { percent
           y="50%"
           dy="0.4rem"
           textAnchor="middle"
-          className="text-3xl montserrat"
+          className="text-3xl montserrat text-white"
         >
           {percentage}%
         </text>
