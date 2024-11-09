@@ -1,9 +1,13 @@
+"use client"
 import Link from "next/link";
 import Image from "next/image";
 import pinkBlob from '../../../public/blob.svg';
 import orangeBlob from "../../../public/orangeBLob.svg";
 import PreLoader from "../ui/PreLoader";
+
 export default function landingPage() {
+
+
   return (
     <div className="w-full">
       <PreLoader/>
