@@ -88,3 +88,4 @@ export async function updateAttendance(image, subjectId) {
     return { error: error.message || 'Internal server error' };
   }
 }
+

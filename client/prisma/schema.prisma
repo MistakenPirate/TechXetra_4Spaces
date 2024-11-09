@@ -11,6 +11,8 @@ model User {
   id          Int              @id @default(autoincrement())
   name        String
   enrollments StudentSubject[] // Tracks user's enrollments in different subjects
+  clerkId        String        @unique
+  faceDescriptor Json?    
 
   @@index([id])
 }
