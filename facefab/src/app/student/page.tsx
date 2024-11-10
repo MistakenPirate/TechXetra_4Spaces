@@ -89,7 +89,7 @@ export default function StudentDashboard() {
               <Cards
                 key={subjectId}
                 subject={subjectName}
-                percentage={percentage}
+                percentage={Number(percentage.toFixed(2))}
                 classes={classes}
               />
             )
