@@ -13,7 +13,7 @@ function Navbar() {
       {(router.includes("/student"))&&
         <div className="text-[#B2A8A8] flex gap-20 text-[1.2rem]">
           <Link href="#">Attendance Manager</Link>
-          <Link href="#">Calendar</Link>
+          <Link href="/video">Add Face</Link>
           
         </div>
 

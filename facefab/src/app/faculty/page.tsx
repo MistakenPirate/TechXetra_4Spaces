@@ -62,7 +62,7 @@ export default function FacultyDashboard() {
       />
       <h1 className="text-[3rem]">Welcome Teacher</h1>
       <section className="w-full rounded-xl border-2 py-4 min-h-[60vh] border-[rgba(255,255,255,0.25)] bg-[rgba(217,217,217,0.1)] backdrop-blur-xl" style={{ marginTop: '4rem' }}>
-        <Subject subject={subject} addAttendance={{addAttendance}} />
+        <Subject subject={subject} addAttendance={addAttendance} />
       </section>
     </div>
   );
