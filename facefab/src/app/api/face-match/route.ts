@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { JsonValue } from "@prisma/client/runtime/library";
 
 function euclideanDistance(descriptor1: Float32Array, descriptor2: Float32Array): number {
   let sum = 0;
@@ -46,6 +47,7 @@ async function findBestMatch(targetDescriptor: Float32Array, subjectName: string
 
     let dbDescriptor;
     try {
+      // @ts-ignore
       dbDescriptor = new Float32Array(student.faceDescriptor);
       console.log({'dbDescriptor':dbDescriptor})
     } catch (error) {
@@ -57,6 +59,7 @@ async function findBestMatch(targetDescriptor: Float32Array, subjectName: string
     console.log({'distance':distance})
     if (distance < threshold && distance < bestMatch.distance) {
       bestMatch = {
+        // @ts-ignore
         studentId: student.clerkId,
         subjectId: subject.id,
         distance: distance,
@@ -92,6 +95,7 @@ export async function POST(request: NextRequest) {
     const attendance = await prisma.studentSubject.upsert({
       where: {
         userId_subjectId: {
+          // @ts-ignore
           userId: match.studentId,
           subjectId: match.subjectId,
         },
@@ -100,6 +104,7 @@ export async function POST(request: NextRequest) {
         attendedClasses: { increment: 1 },
       },
       create: {
+        // @ts-ignore
         userId: match.studentId,
         subjectId: match.subjectId,
         attendedClasses: 1,

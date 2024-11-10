@@ -78,6 +78,7 @@ export default function PreLoader() {
             delay:6,
         })
         gsap.to(".loader-2",
+        // @ts-ignore
         {
             x:-75,
             y:75,

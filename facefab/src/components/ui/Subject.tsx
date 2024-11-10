@@ -20,6 +20,7 @@ export default function Subject({subject,addAttendance}:any) {
       variant: success ? "default" : "destructive",
     });
   };
+  // @ts-ignore
   const handleClick =(name)=>{
     setIsPopupOpen(true)
     setSubjectName(name)
