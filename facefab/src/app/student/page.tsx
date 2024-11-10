@@ -80,7 +80,7 @@ export default function StudentDashboard() {
         />
         <Image
           src={orangeBlob}
-          className="absolute left-0 bottom-0 w-[20%]"
+          className="absolute left-0 bottom-0 w-[20%] z-[-10]"
           alt="blob"
         />
         <div className="flex flex-wrap gap-6">

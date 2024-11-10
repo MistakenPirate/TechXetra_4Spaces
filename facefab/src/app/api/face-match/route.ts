@@ -26,6 +26,7 @@ async function findBestMatch(targetDescriptor: Float32Array, subjectName: string
     select: {
       id: true,
       name: true,
+      totalClasses: true
     },
   });
 
@@ -38,11 +39,10 @@ async function findBestMatch(targetDescriptor: Float32Array, subjectName: string
     subjectId: subject.id,
     distance: Number.MAX_VALUE,
     name: null as string | null,
+    totalClasses: subject.totalClasses
   };
   
   for (const student of students) {
-    console.log(typeof student.faceDescriptor)
-    // Check if faceDescriptor exists and is a valid JSON string
   
 
     let dbDescriptor;
@@ -52,7 +52,7 @@ async function findBestMatch(targetDescriptor: Float32Array, subjectName: string
       console.log({'dbDescriptor':dbDescriptor})
     } catch (error) {
       console.error(`Error parsing faceDescriptor for student ID ${student.id}`, error);
-      continue; // Skip this student if there's an issue with parsing
+      continue;
     }
 
     const distance = euclideanDistance(targetDescriptor, dbDescriptor);
@@ -64,6 +64,7 @@ async function findBestMatch(targetDescriptor: Float32Array, subjectName: string
         subjectId: subject.id,
         distance: distance,
         name: student.name,
+        totalClasses: subject.totalClasses
       };
       console.log({"Match Testing":bestMatch})
     }
@@ -92,6 +93,25 @@ export async function POST(request: NextRequest) {
     if (!match.studentId) {
       return NextResponse.json({ error: "No matching face found" }, { status: 404 });
     }
+    
+    const currentAttendance = await prisma.studentSubject.findUnique({
+      where: {
+        userId_subjectId: {
+          // @ts-ignore
+          userId: match.studentId,
+          subjectId: match.subjectId,
+        },
+      },
+    });
+
+    if (currentAttendance && currentAttendance.attendedClasses >= match.totalClasses) {
+      return NextResponse.json({
+        error: "Attendance limit reached",
+        currentAttendance: currentAttendance.attendedClasses,
+        totalClasses: match.totalClasses
+      }, { status: 400 });
+    }
+    
     const attendance = await prisma.studentSubject.upsert({
       where: {
         userId_subjectId: {
